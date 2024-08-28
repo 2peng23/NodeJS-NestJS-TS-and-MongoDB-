@@ -63,14 +63,13 @@ Security
 
 
 
-## API Endpoints
+## USER ENDPOINTS
 ```bash
-USER ENDPOINTS
-Login via google {GET} /api/users/login, use browser on this it shows login button
-Get all users {GET} /api/users
-create a user {POST} /api/users 
+`Login via google {GET} /api/users/login, use browser on this it shows login button
+`Get all users {GET} /api/users
+`Create a user {POST} /api/users 
 require body (email,password,role[default value is 0 if you want admin set 1]) 
-login user {POST} /api/users/login sends JWT token and also send cookie token
+`Login user {POST} /api/users/login sends JWT token and also send cookie token
 sample credental   
 email: test@test.com
 password: password
@@ -84,6 +83,7 @@ password: password
 `require body (title,content,note_userid) all required
 `Get Notes {GET}: /api/notes/  
 `also accepts additional queries[page,limit,userId,tagId,categoryId]  /notes?page=1&&limit=5&&userId=66cc7b3e6716493ff04e05ab
+
 ``Get Details of Specific Note {GET}: /api/notes/:id
 `Update Note {PUT}: /api/notes/:id
 ```
@@ -92,7 +92,7 @@ password: password
 ```bash
 Running the Project
 
-Backend: port must 5555 set google callback
+Backend: port must 5555 this is what I set google callback
 I already include .env with necessary environment variables.
 ```
 
