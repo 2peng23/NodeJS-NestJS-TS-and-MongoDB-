@@ -50,47 +50,50 @@ $ npm run start:prod
 Project README
 
 
-```Stack Used
-MongoDB database for storing data.
+Stack Used
+`MongoDB database for storing data.
 `ExpressJS: Web application framework for Node.js.
 `NestJS: JavaScript library for building user interfaces.
 `Typescript
 
 
-```Security
+Security
 `JWT Token: Used for authentication and secure communication.
 `Google OAuth: Allows users to sign in using their Google accounts.
 
 
 
-```API Endpoints
-`USER ENDPOINTS
-`Login via google {GET} /api/users/login
-`Get all users {GET} /api/users
-`create a user {POST} /api/users 
-`require body (email,password,role[default value is 0 if you want admin set 1]) 
-```login user {POST} /api/users/login sends JWT token and also send cookie token
-```sample credental   
-`email: test@test.com
-`password: password
+## API Endpoints
+```bash
+USER ENDPOINTS
+Login via google {GET} /api/users/login, use browser on this it shows login button
+Get all users {GET} /api/users
+create a user {POST} /api/users 
+require body (email,password,role[default value is 0 if you want admin set 1]) 
+login user {POST} /api/users/login sends JWT token and also send cookie token
+sample credental   
+email: test@test.com
+password: password
+```
 
 
+## NOTES ENDPOINTS
 
+```bash
 `Create Note {POST}: /api/notes
 `require body (title,content,note_userid) all required
 `Get Notes {GET}: /api/notes/  
 `also accepts additional queries[page,limit,userId,tagId,categoryId]  /notes?page=1&&limit=5&&userId=66cc7b3e6716493ff04e05ab
 ``Get Details of Specific Note {GET}: /api/notes/:id
 `Update Note {PUT}: /api/notes/:id
+```
 
 
+```bash
+Running the Project
 
-```Running the Project
-
-`Backend: port must 5555 set google callback
-`I already include .env with necessary environment variables.
-
-
-And lastly, to manually create an admin user this is the endpoint
+Backend: port must 5555 set google callback
+I already include .env with necessary environment variables.
+```
 
 
