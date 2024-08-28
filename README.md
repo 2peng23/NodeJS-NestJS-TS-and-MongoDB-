@@ -22,6 +22,8 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+## Joel Rioflorido
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
@@ -45,41 +47,50 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+Project README
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+```Stack Used
+MongoDB database for storing data.
+`ExpressJS: Web application framework for Node.js.
+`NestJS: JavaScript library for building user interfaces.
+`Typescript
 
-# test coverage
-$ npm run test:cov
-```
 
-## Resources
+```Security
+`JWT Token: Used for authentication and secure communication.
+`Google OAuth: Allows users to sign in using their Google accounts.
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+```API Endpoints
+`USER ENDPOINTS
+`Login via google {GET} /api/users/login
+`Get all users {GET} /api/users
+`create a user {POST} /api/users 
+`require body (email,password,role[default value is 0 if you want admin set 1]) 
+```login user {POST} /api/users/login sends JWT token and also send cookie token
+```sample credental   
+`email: test@test.com
+`password: password
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+`Create Note {POST}: /api/notes
+`require body (title,content,note_userid) all required
+`Get Notes {GET}: /api/notes/  
+`also accepts additional queries[page,limit,userId,tagId,categoryId]  /notes?page=1&&limit=5&&userId=66cc7b3e6716493ff04e05ab
+``Get Details of Specific Note {GET}: /api/notes/:id
+`Update Note {PUT}: /api/notes/:id
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+```Running the Project
+
+`Backend: port must 5555 set google callback
+`I already include .env with necessary environment variables.
+
+
+And lastly, to manually create an admin user this is the endpoint
+
+

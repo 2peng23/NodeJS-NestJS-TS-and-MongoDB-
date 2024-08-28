@@ -28,7 +28,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   ): Promise<any> {
     try {
       // Check if the user already exists
-      let user = await this.userModel.findOne({ email: profile.email });
+      let user = await this.userModel.findOne({ email: profile.emails[0].value });
 
       // If the user doesn't exist, create a new one
       if (!user) {
@@ -38,8 +38,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
           password: await this.authService.hashPassword(profile.id), // Hash Google ID as a password
         };
 
-        user = new this.userModel(userData);
-        await user.save();
+        user = await this.userModel.create(userData)
       }
 
       // Pass the user to the done callback

@@ -30,6 +30,9 @@ export class NoteController {
     @Res() res: Response,
     @Query('page') page?: number,
     @Query('limit') limit?: number,
+    @Query('userId') userId?: any,
+    @Query('tagId') tagId?: any,
+    @Query('categoryId') categoryId?: any,
   ) {
     this.noteService.getNotes((error, response) => {
       if (error) {
@@ -47,7 +50,7 @@ export class NoteController {
         page: response.page,
         limit: response.limit,
       });
-    }, page, limit);
+    }, page, limit, userId, tagId, categoryId);
   }
   
   @Get(':id')

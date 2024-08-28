@@ -43,15 +43,24 @@ export class NoteService {
     callBack: (error: any, res?: any) => void,
     page: number,
     limit: number,
+    userId: any,
+    tagId: any,
+    categoryId: any,
   ) {
     try {
       const skip = (page - 1) * limit;
 
-      // Fetch notes with pagination
-      const [notes, total] = await Promise.all([
-        this.noteModel.find().skip(skip).limit(limit).exec(),
-        this.noteModel.countDocuments().exec(),
-      ]);
+      // Build the query object
+    const query: any = {};
+    if (userId) query.note_userid = userId;
+    if (tagId) query.tag_id = tagId;
+    if (categoryId) query.category_id = categoryId;
+
+    // Fetch notes with pagination and filtering
+    const [notes, total] = await Promise.all([
+      this.noteModel.find(query).skip(skip).limit(limit).exec(),
+      this.noteModel.countDocuments(query).exec(),
+    ]);
 
       return callBack(null, {
         data: notes,
