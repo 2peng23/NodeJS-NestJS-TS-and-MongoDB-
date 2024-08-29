@@ -52,8 +52,8 @@ Project README
 
 Stack Used
 `MongoDB database for storing data.
-`ExpressJS: Web application framework for Node.js.
-`NestJS: JavaScript library for building user interfaces.
+`NodeJS: backend.
+`NestJS: JavaScript library for building user interfaces and a good framework.
 `Typescript
 
 
