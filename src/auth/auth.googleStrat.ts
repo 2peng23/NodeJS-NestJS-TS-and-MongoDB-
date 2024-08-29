@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
-import { Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { Strategy, VerifyCallback } from 'passport-google-oauth2';
 import { User, UserDocument } from 'src/users/users.schema';
 import { AuthService } from './auth.service';
 
@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-    private readonly authService: AuthService, // Correct injection here
+    private readonly authService: AuthService,
   ) {
     super({
       clientID: process.env.GOOGLE_OAUTH_CLIENT_ID,
@@ -27,25 +27,33 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     done: VerifyCallback,
   ): Promise<any> {
     try {
+      const { email, name } = profile._json;
+      
       // Check if the user already exists
-      let user = await this.userModel.findOne({ email: profile.emails[0].value });
+      let user = await this.userModel.findOne({ email });
 
       // If the user doesn't exist, create a new one
       if (!user) {
         const userData = {
-          name: profile.displayName,
-          email: profile.emails[0].value,
-          password: await this.authService.hashPassword(profile.id), // Hash Google ID as a password
+          name,
+          email,
+          password: name, // Consider hashing the password or using a secure method
         };
-
-        user = await this.userModel.create(userData)
+        const exist = await this.userModel.findOne({ email: userData.email });
+        if (exist) {
+          return done(null, false, { message: 'Email already taken!' });
+        }
+        const hashedPassword = await this.authService.hashPassword(userData.password);
+        user = new this.userModel({
+          ...userData,
+          password: hashedPassword,
+        });
+        await user.save();
       }
-
-      // Pass the user to the done callback
+      
       return done(null, profile);
-    } catch (err) {
-      // Handle errors appropriately
-      return done(err, false, {
+    } catch (error) {
+      return done(error, false, {
         message: 'An error occurred during authentication',
       });
     }

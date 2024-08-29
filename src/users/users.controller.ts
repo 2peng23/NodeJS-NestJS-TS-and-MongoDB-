@@ -42,7 +42,6 @@ export class UsersController {
       });
     }, name);
   }
-
   // POST /users
   @Post()
   createUser(
@@ -61,15 +60,12 @@ export class UsersController {
       });
     });
   }
-
   //   DYNAMIC routes --with params
-
   // PUT /users/:id
   @Put(':id')
   updateUser(@Param('id') id: string, @Body() updateUser: {}) {
     return { id, ...updateUser };
   }
-
   // DELETE /users/:id
   @Delete(':id')
   deleteUser(@Param('id') id: string, @Res() res: Response) {
@@ -84,7 +80,6 @@ export class UsersController {
       });
     });
   }
-
   @Get('login')
   async loginUser(@Req() req: Request, @Res() res: Response) {
     res.send(
