@@ -13,6 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import * as jwt from 'jsonwebtoken'; // Import jwt
+import { ResponseHelper } from 'src/helpers/response';
 
 @Controller('api/users') // route is /users it is called 'decorators'
 export class UsersController {
@@ -30,11 +31,7 @@ export class UsersController {
     //role? state that this is optional
     this.userService.getAllUsers((error: any, response: any) => {
       if (error) {
-        return res.status(error.status).json({
-          success: 0,
-          message: error.message,
-          data: null,
-        });
+        return ResponseHelper.error(res, error);
       }
       return res.status(200).json({
         success: 1,
@@ -53,11 +50,7 @@ export class UsersController {
   ) {
     this.userService.createUser(user, (error: any, response: any) => {
       if (error) {
-        return res.status(error.status).json({
-          success: 0,
-          message: error.message,
-          data: null,
-        });
+        return ResponseHelper.error(res, error);
       }
       return res.status(201).json({
         success: 1,
@@ -80,11 +73,7 @@ export class UsersController {
   deleteUser(@Param('id') id: string, @Res() res: Response) {
     this.userService.deleteUser(id, (error: any, response: any) => {
       if (error) {
-        return res.status(error.status).json({
-          success: 0,
-          message: error.message,
-          data: null,
-        });
+        return ResponseHelper.error(res, error);
       }
       return res.status(201).json({
         success: 1,
@@ -109,11 +98,7 @@ export class UsersController {
 
       this.userService.loginUser(body, (err, response) => {
         if (err) {
-          return res.status(500).json({
-            success: 0,
-            message: err,
-            data: null,
-          });
+            return ResponseHelper.error(res, err);
         }
 
         // sign the JWT token

@@ -115,7 +115,10 @@ async loginUser (data : any, callBack : (error: any, response?: any) => void) {
     try {
       const user = await this.userModel.findOne({ email: data.email });
       if (!user) {
-        return callBack("Invalid Credentials");
+        return callBack({
+            status: 400,
+            message: 'Invalid Credentials',
+          });
       }
       // const hashedPassword = await authHelper.hashPassword(data.password);
       const isMatch = await this.authService.comparePassword(
@@ -123,11 +126,17 @@ async loginUser (data : any, callBack : (error: any, response?: any) => void) {
         user.password //password from db
       );
       if (!isMatch) {
-        return callBack("Invalid Credentials");
+        return callBack({
+            status: 400,
+            message: 'Invalid Credentials',
+          });
       }
       return callBack(null, user);
     } catch (error) {
-      callBack(error.message);
+        return callBack({
+            status: 400,
+            message: error.message,
+          });
     }
   };
 }

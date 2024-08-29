@@ -1,6 +1,7 @@
 import { Controller, Delete, Get, Post, Put, Query, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { NoteService } from './note.service';
+import { ResponseHelper } from 'src/helpers/response';
 
 @Controller('api/notes')
 export class NoteController {
@@ -10,11 +11,7 @@ export class NoteController {
     const body = req.body;
     this.noteService.createNote(body, (error: any, response: any) => {
       if (error) {
-        return res.status(error.status).json({
-          success: 0,
-          message: error.message,
-          data: null,
-        });
+        return ResponseHelper.error(res, error);
       }
       return res.status(201).json({
         success: 1,
@@ -36,11 +33,7 @@ export class NoteController {
   ) {
     this.noteService.getNotes((error, response) => {
       if (error) {
-        return res.status(error.status).json({
-          success: 0,
-          message: error.message,
-          data: null,
-        });
+        return ResponseHelper.error(res, error);
       }
       return res.status(200).json({
         success: 1,
@@ -58,11 +51,7 @@ export class NoteController {
     const id = req.params.id
     this.noteService.getNote(id, (error, response) => {
         if (error) {
-            return res.status(error.status).json({
-              success: 0,
-              message: error.message,
-              data: null,
-            });
+            return ResponseHelper.error(res, error);
           }
           return res.status(200).json({
             success: 1,
@@ -77,11 +66,7 @@ export class NoteController {
     const body = req.body
     this.noteService.updateNote(id,body, (error, response) => {
         if (error) {
-            return res.status(error.status).json({
-              success: 0,
-              message: error.message,
-              data: null,
-            });
+            return ResponseHelper.error(res, error);
           }
           return res.status(200).json({
             success: 1,
@@ -95,11 +80,7 @@ export class NoteController {
     const id = req.params.id
     this.noteService.deleteNote(id, (error, response) => {
         if (error) {
-            return res.status(error.status).json({
-              success: 0,
-              message: error.message,
-              data: null,
-            });
+            return ResponseHelper.error(res, error);
           }
           return res.status(200).json({
             success: 1,
