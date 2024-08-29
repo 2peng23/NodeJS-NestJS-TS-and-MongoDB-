@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
 import { Response } from 'express';
 import * as jwt from 'jsonwebtoken'; // Import jwt
 import { ResponseHelper } from 'src/helpers/response';
+import { CreateUserRequestDto } from './users.create-request.dto';
 
 @Controller('api/users') // route is /users it is called 'decorators'
 export class UsersController {
@@ -36,6 +37,7 @@ export class UsersController {
       return res.status(200).json({
         success: 1,
         message: 'All users',
+        count: response.length,
         data: response,
       });
     }, name);
@@ -45,10 +47,10 @@ export class UsersController {
   @Post()
   createUser(
     @Body()
-    user: { name: string; email: string; password: string; user_role: string },
+    createUser: CreateUserRequestDto,
     @Res() res: Response,
   ) {
-    this.userService.createUser(user, (error: any, response: any) => {
+    this.userService.createUser(createUser, (error: any, response: any) => {
       if (error) {
         return ResponseHelper.error(res, error);
       }
@@ -98,7 +100,7 @@ export class UsersController {
 
       this.userService.loginUser(body, (err, response) => {
         if (err) {
-            return ResponseHelper.error(res, err);
+          return ResponseHelper.error(res, err);
         }
 
         // sign the JWT token

@@ -1,15 +1,15 @@
-import { Controller, Delete, Get, Post, Put, Query, Req, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Query, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { NoteService } from './note.service';
 import { ResponseHelper } from 'src/helpers/response';
+import { CreateNoteRequestDto } from './note.create-request.dto';
 
 @Controller('api/notes')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
   @Post()
-  createNote(@Req() req: Request, @Res() res: Response) {
-    const body = req.body;
-    this.noteService.createNote(body, (error: any, response: any) => {
+  createNote(@Body() noteReq: CreateNoteRequestDto, @Res() res: Response) {
+    this.noteService.createNote(noteReq, (error: any, response: any) => {
       if (error) {
         return ResponseHelper.error(res, error);
       }

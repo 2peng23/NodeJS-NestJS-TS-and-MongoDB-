@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './users.schema';
 import { Model } from 'mongoose';
 import { AuthService } from 'src/auth/auth.service';
+import { CreateUserRequestDto } from './users.create-request.dto';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +21,7 @@ export class UsersService {
         });
       }
     }
-    async createUser(user: {name: string, email: string, password: string, user_role: string}, callBack: (error: any, response?: any) => void){
+    async createUser(user: CreateUserRequestDto, callBack: (error: any, response?: any) => void){
         try {
             const existingUser = await this.userModel.findOne({email: user.email})
             console.log(existingUser);
