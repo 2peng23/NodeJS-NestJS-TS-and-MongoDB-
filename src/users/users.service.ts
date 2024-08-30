@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './users.schema';
+import { User, UserModel } from './users.schema';
 import { Model } from 'mongoose';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserRequestDto } from './users.create-request.dto';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private readonly authService: AuthService) {}
+    constructor(@InjectModel(User.name) private userModel: Model<UserModel>, private readonly authService: AuthService) {}
 
     async getAllUsers(callBack: (error: any, response?: any) => void, name?: string) {
       try {

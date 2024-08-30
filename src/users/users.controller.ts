@@ -45,10 +45,9 @@ export class UsersController {
   // POST /users
   @Post()
   createUser(
-    @Body()
-    createUser: CreateUserRequestDto,
+    @Body() createUser: CreateUserRequestDto,
     @Res() res: Response,
-  ) {
+  ): void {
     this.userService.createUser(createUser, (error: any, response: any) => {
       if (error) {
         return ResponseHelper.error(res, error);
@@ -63,7 +62,7 @@ export class UsersController {
   //   DYNAMIC routes --with params
   // PUT /users/:id
   @Put(':id')
-  updateUser(@Param('id') id: string, @Body() updateUser: {}) {
+  updateUser(@Param('id') id: string, @Body() updateUser: object) {
     return { id, ...updateUser };
   }
   // DELETE /users/:id
@@ -81,7 +80,7 @@ export class UsersController {
     });
   }
   @Get('login')
-  async loginUser(@Req() req: Request, @Res() res: Response) {
+  loginUser(@Req() req: Request, @Res() res: Response) {
     res.send(
       "<Button><a href='/api/auth/google'>Login via google</a></Button>",
     );

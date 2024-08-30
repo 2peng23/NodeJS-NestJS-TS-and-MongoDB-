@@ -3,13 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { Strategy, VerifyCallback } from 'passport-google-oauth2';
-import { User, UserDocument } from 'src/users/users.schema';
+import { User, UserModel } from 'src/users/users.schema';
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(User.name) private readonly userModel: Model<UserModel>,
     private readonly authService: AuthService,
   ) {
     super({
